@@ -40,6 +40,7 @@ const languages = {
 
 
 function choose_language() {
+    //Add Language Options to select
     Object.entries(languages).forEach(([code, name]) => {
         const option = document.createElement("option")
         option.value = code
@@ -54,6 +55,7 @@ choose_language()
 
 // Game start
 function startGame() {
+    //Hide play button and reset game state
     playBtn.style.display = 'none';
     score = 0
     time = 10
@@ -74,6 +76,7 @@ playBtn.addEventListener('click', startGame)
 
 
 async function addWordToDOM() {
+    //Fetch word from API and normalize it to remove accents for easier typing
     const res = await fetch(`https://random-word-api.herokuapp.com/word?lang=${languageSelect.value}`)
     const data = await res.json()
     randomWord = data[0].normalize('NFD').replace(/[\u0300-\u036f]/g, '');
@@ -95,6 +98,7 @@ function updateTime() {
 }
 
 function gameOver() {
+    //log the game over message and display modal
     console.log("Game over");
     clearInterval(timeInterval)
     timeEl.innerHTML = '0s'
@@ -105,6 +109,7 @@ function gameOver() {
 
 }
 
+//Allow user to reset game
 restartBtn.addEventListener("click", () => {
     endgameEl.style.display = 'none'
     playBtn.style.display = 'inline-block'
